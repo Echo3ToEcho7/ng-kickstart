@@ -7,11 +7,20 @@ angular.module('app.notes', [
 		templateUrl: 'app/notes/notes.tpl.html',
 		resolve: {
 			notesList: function(NotesService) {
-				return NotesService.query();
+				return NotesService.get();
 			}
 		}
 	});
 }).controller('NotesCtrl', function($scope, NotesService, notesList) {
+
+	function store(copy, message){
+		NotesService.put(copy).then(function() {
+			app.notes = copy;
+			alertify.log(message);
+			app.reset();
+		});
+	}
+
 	var app = this;
 	app.notes = notesList;
 
@@ -22,38 +31,27 @@ angular.module('app.notes', [
 
 	app.addNote = function(newNote) {
 		if ($scope.addForm.$valid) {
-			var entry = new NotesService();
-			entry.note = newNote;
-			entry.$save(function(data) {
-				alertify.log("note saved :)");
-				app.notes.push({
-					id: data.id,
-					note: newNote
-				});
-				app.reset();
+			var copy = angular.copy(app.notes);
+			copy.push({
+				id: copy.length,
+				note: newNote
 			});
+			store(copy, "note saved :)");
 		}
 	};
 	app.deleteNote = function(index, id) {
-		NotesService.delete({
-			id: id
-		}, function() {
-			alertify.log("note deleted :)");
-			app.notes.splice(index, 1);
-			app.reset();
-		});
+		var copy = angular.copy(app.notes);
+		copy.splice(index, 1);
+		store(copy, "note deleted :)");
+
 	};
 	app.updateNote = function(note) {
-		var key = {
-			id: note.id
-		};
-		var value = {
-			note: note.note
-		};
-		NotesService.save(key, value, function(data) {
-			alertify.log("note updated :)");
-			note.note = data.note;
-			app.reset();
+		var copy = angular.copy(app.notes);
+		var el = _.each(copy, function(element, index, list){
+			if (element.id === note.id){
+				element.note=note.note;
+			}
 		});
+		store(copy, "note updated :)");
 	};
 });
