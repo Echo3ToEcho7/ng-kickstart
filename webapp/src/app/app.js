@@ -30,14 +30,10 @@ angular.module('app', [
 	'common.directives.plusOne',
 	'common.interceptors.http'
 ]).config(function myAppConfig($provide, $routeProvider, $locationProvider, $httpProvider) {
-	$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode(true);
 	$routeProvider.otherwise({
 		redirectTo: '/'
 	});
-	$provide.decorator('$sniffer', function($delegate) {
-  $delegate.history = false;
-  return $delegate;
-});
 }).run(function run($rootScope, $window) {
 	$rootScope.config = $window.app.config;
 }).controller('AppCtrl', function AppCtrl($scope, $location) {
