@@ -1,9 +1,9 @@
-<div class="panel text-center"><h4>This demo stores data into localStorage. Download <code>ng-kickstart</code> and take a look at the <a ng-href="/gettingStarted">getting started</a> section  to obtaim a version of the project working with a real RESTFul backend</h4></div>
+<div class="panel text-center"><h4>This demo stores data into localStorage. Download <code>ng-kickstart</code> and take a look at the <a ng-href="/gettingStarted">getting started</a> section  to obtain version of the project working with a real RESTFul backend</h4></div>
 <div class="notes">
 	<form ng-submit="notesCtrl.addNote(notesCtrl.newNote)" novalidate name="addForm">
 		<div class="row">
 			<small class="error" ng-show="addForm.newNote.$invalid && !addForm.newNote.$pristine">Please fill the input</small>
-			<input type="text" ng-model="notesCtrl.newNote" name="newNote"  required autofocus
+			<input type="text" ng-model="notesCtrl.newNote" name="newNote"  required
 			placeholder="Write a new note and hit enter..." maxlength="100" class="noteInput">
 
 		</div>
