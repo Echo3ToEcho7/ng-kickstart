@@ -32,7 +32,7 @@ angular.module('app', [
 ]).config(function myAppConfig($provide, $routeProvider, $locationProvider, $httpProvider) {
 	$locationProvider.html5Mode(true);
 	$routeProvider.otherwise({
-		redirectTo: '/home'
+		redirectTo: '/'
 	});
 	$provide.decorator('$sniffer', function($delegate) {
   $delegate.history = false;

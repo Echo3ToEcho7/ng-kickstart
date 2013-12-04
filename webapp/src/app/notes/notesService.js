@@ -10,7 +10,7 @@ factory('NotesService', function($q, $timeout, cfpLoadingBar) {
 			var data = JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
 			cfpLoadingBar.complete();
 			deferred.resolve(data);
-		}, 500);
+		}, 200);
 
 		return deferred.promise;
 	};
@@ -22,7 +22,7 @@ factory('NotesService', function($q, $timeout, cfpLoadingBar) {
 			localStorage.setItem(STORAGE_ID, JSON.stringify(elems));
 			cfpLoadingBar.complete();
 			deferred.resolve();
-		}, 500);
+		}, 200);
 
 		return deferred.promise;
 	};
