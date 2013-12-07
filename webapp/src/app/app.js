@@ -28,14 +28,19 @@ angular.module('app', [
 	'chieffancypants.loadingBar',
 	'common.directives.appVersion',
 	'common.directives.plusOne',
-	'common.interceptors.http'
-]).config(function myAppConfig($provide, $routeProvider, $locationProvider, $httpProvider) {
-	//$locationProvider.html5Mode(true);
+	'common.interceptors.http']).config(function myAppConfig($provide, $routeProvider, $locationProvider, $httpProvider) {
+	$provide.decorator('$sniffer', function($delegate) {
+		$delegate.history = false;
+		return $delegate;
+	});
 	$routeProvider.otherwise({
-		redirectTo: '/'
+		redirectTo: '/home'
 	});
 }).run(function run($rootScope, $window) {
 	$rootScope.config = $window.app.config;
+	$rootScope.$on('$routeChangeStart', function(next, current) {
+		$window.scrollTo(0, 0);
+	});
 }).controller('AppCtrl', function AppCtrl($scope, $location) {
 	$scope.title = "ng-kickstart | easy AngularJS development";
 	$scope.isActive = function(viewLocation) {
